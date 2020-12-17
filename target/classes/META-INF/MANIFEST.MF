@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: AL3017
+Build-Jdk: 13.0.2
+Implementation-Title: ImageHoster
+Implementation-Version: 1.0-SNAPSHOT
+Implementation-Vendor-Id: com.upgrad.ImageHoster
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/ImageHoster
+Created-By: Maven Integration for Eclipse
+
