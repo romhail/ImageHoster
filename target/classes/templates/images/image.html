@@ -6,6 +6,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/tachyons.min.css}"/>
 </head>
+<style>
+
+div {
+  color: red;font-weight: bold;
+}
+
+</style>
 
 <!-- Using the logged-in fragment -->
 <nav class="dt w-100 border-box pa3">
@@ -20,7 +27,7 @@
         <form th:action="@{/deleteImage(imageId=${image.id})}" th:method="delete">
             <input type="submit" value="Delete"/>
         </form>
-        <div th:if="${deleteError}">Only the owner of the image can delete the image</div>
+        <div th:if="${deleteError}" >Only the owner of the image can delete the image</div>
     </div>
 </nav>
 

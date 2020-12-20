@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 /**
  * ImageHosterApplication class
+ * This is the main class to start the Sprint boot application
  * @author Romil
  */
 @ComponentScan(value={"ImageHoster.controller", "ImageHoster.config","ImageHoster.service","ImageHoster.repository"})
@@ -14,7 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableAutoConfiguration
 public class ImageHosterApplication {
 	/**
-	 * 
+	 * main method to start the execution
 	 * @param args
 	 */
     public static void main(String[] args) {
