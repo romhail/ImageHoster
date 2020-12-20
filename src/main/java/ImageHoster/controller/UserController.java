@@ -44,10 +44,18 @@ public class UserController {
 	@RequestMapping(value = "users/registration", method = RequestMethod.POST)
 	public String registerUser(User user, Model model) {
 		model.addAttribute("User", user);
+		if(user.getUsername().equalsIgnoreCase("") | user.getPassword().equalsIgnoreCase("") | user.getProfile().getFullName().equalsIgnoreCase("")) {
+			model.addAttribute("validationError", true);
+			return "/users/registration";
+		}
+		if(userService.checkIfUserExists(user.getUsername())) {
+			model.addAttribute("userExistsError", true);
+			return "/users/registration";
+		}
 		if (userService.registerUser(user))
 			return "redirect:/users/login";
 		model.addAttribute("passwordTypeError", true);
-		return "redirect:/users/registration";
+		return "/users/registration";
 	}
 
 	// This controller method is called when the request pattern is of type

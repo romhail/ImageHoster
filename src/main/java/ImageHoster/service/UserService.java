@@ -52,5 +52,11 @@ public class UserService {
 		}
 		return false;
 	}
-
+	
+	public boolean checkIfUserExists(String userId) {
+		if(userRepository.checkIfUserExists(userId)) {
+			return true;
+		}
+		return false;
+	}
 }

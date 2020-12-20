@@ -2,6 +2,13 @@
 
 <html xmlns:th="http://thymeleaf.org">
 
+<style>
+
+div {
+  color: red;font-weight: bold;
+}
+
+</style>
 <!-- Adding the fragment site-head in layout.html-->
 <head th:replace="layout :: site-head">
 </head>
@@ -30,8 +37,8 @@
     <input type="text" id="mobilenumber" name="mobileNumber" th:field="${User.profile.mobileNumber}"/>
 
     <input type="submit" value="Register"/>
-
-
+	<div th:if="${validationError}">Username, Password and FullName are mandatory</div>
+    <div th:if="${userExistsError}">User Already Exists with this username</div>
     <div th:if="${passwordTypeError}">Password must contain atleast 1 alphabet, 1 number & 1 special character</div>
     
 </form>

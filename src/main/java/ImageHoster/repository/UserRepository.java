@@ -49,4 +49,21 @@ public class UserRepository {
             return null;
         }
     }
+    
+    public boolean checkIfUserExists(String username) {
+        try {
+            EntityManager em = emf.createEntityManager();
+            TypedQuery<User> typedQuery = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class);
+            typedQuery.setParameter("username", username);
+            User usr = typedQuery.getSingleResult();
+            if(usr != null) {
+            	return true;
+            }
+            return false;
+        } catch (NoResultException nre) {
+            return false;
+        }
+    }
+    
+    
 }
