@@ -25,8 +25,8 @@ import ImageHoster.service.ImageService;
 import ImageHoster.service.TagService;
 
 /**
- * Class ImageController
- * This is a controller class to map image methods
+ * Class ImageController This is a controller class to map image methods
+ * 
  * @author Romil
  */
 @Controller
@@ -37,12 +37,11 @@ public class ImageController {
 
 	@Autowired
 	private TagService tagService;
-	
-
 
 	/**
-	 * Method getUserImages
-	 * This method displays all the images in the user home page after successful Login
+	 * Method getUserImages This method displays all the images in the user home
+	 * page after successful Login
+	 * 
 	 * @param model
 	 * @return String
 	 */
@@ -54,8 +53,9 @@ public class ImageController {
 	}
 
 	/**
-	 * Method showImage
-	 * This method is called when the details of the specific image with id
+	 * Method showImage This method is called when the details of the specific image
+	 * with id
+	 * 
 	 * @param id
 	 * @param model
 	 * @return String
@@ -71,8 +71,9 @@ public class ImageController {
 	}
 
 	/**
-	 * Method newImage
-	 * This controller method is called when the request pattern is of type 'images/upload'
+	 * Method newImage This controller method is called when the request pattern is
+	 * of type 'images/upload'
+	 * 
 	 * @return String
 	 */
 	@RequestMapping("/images/upload")
@@ -81,8 +82,8 @@ public class ImageController {
 	}
 
 	/**
-	 * Method createImage
-	 * This controller method is called to create new Image
+	 * Method createImage This controller method is called to create new Image
+	 * 
 	 * @param file
 	 * @param tags
 	 * @param newImage
@@ -105,8 +106,9 @@ public class ImageController {
 	}
 
 	/**
-	 * Method editImage
-	 * This method fetches the image with the corresponding id from the database and adds it to the model with the key as 'image'
+	 * Method editImage This method fetches the image with the corresponding id from
+	 * the database and adds it to the model with the key as 'image'
+	 * 
 	 * @param imageId
 	 * @param model
 	 * @param session
@@ -117,9 +119,11 @@ public class ImageController {
 		Image image = imageService.getImage(imageId);
 		User existingUser = (User) session.getAttribute("loggeduser");
 		if (existingUser.getUsername().equalsIgnoreCase(image.getUser().getUsername())) {
-			String tags = convertTagsToString(image.getTags());
+			if (image.getTags().size() != 0) {
+				String tags = convertTagsToString(image.getTags());
+				model.addAttribute("tags", tags);
+			}
 			model.addAttribute("image", image);
-			model.addAttribute("tags", tags);
 			return "images/edit";
 		} else {
 			model.addAttribute("editError", true);
@@ -131,8 +135,8 @@ public class ImageController {
 	}
 
 	/**
-	 * Method editImageSubmit
-	 * The method is used to save image
+	 * Method editImageSubmit The method is used to save image
+	 * 
 	 * @param file
 	 * @param imageId
 	 * @param tags
@@ -162,19 +166,19 @@ public class ImageController {
 		updatedImage.setDate(new Date());
 
 		imageService.updateImage(updatedImage);
-		return "redirect:/images/" + updatedImage.getTitle();
+		return "redirect:/images/" + updatedImage.getId();
 	}
 
 	/**
-	 * Method deleteImageSubmit
-	 * This method is used to delete image 
+	 * Method deleteImageSubmit This method is used to delete image
+	 * 
 	 * @param imageId
 	 * @param model
 	 * @param session
 	 * @return
 	 */
 	@RequestMapping(value = "/deleteImage", method = RequestMethod.DELETE)
-	public String deleteImageSubmit(@RequestParam(name = "imageId") Integer imageId,  Model model, HttpSession session) {
+	public String deleteImageSubmit(@RequestParam(name = "imageId") Integer imageId, Model model, HttpSession session) {
 		Image image = imageService.getImage(imageId);
 		User existingUser = (User) session.getAttribute("loggeduser");
 		if (existingUser.getUsername().equalsIgnoreCase(image.getUser().getUsername())) {
@@ -188,7 +192,7 @@ public class ImageController {
 		}
 
 	}
-	
+
 	// This method converts the image to Base64 format
 	private String convertUploadedFileToBase64(MultipartFile file) throws IOException {
 		return Base64.getEncoder().encodeToString(file.getBytes());

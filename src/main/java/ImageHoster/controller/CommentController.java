@@ -17,8 +17,8 @@ import ImageHoster.service.CommentService;
 import ImageHoster.service.ImageService;
 
 /**
- * Class CommentController
- * This is a controller class to map comment methods
+ * Class CommentController This is a controller class to map comment methods
+ * 
  * @author Romil
  */
 @Controller
@@ -26,13 +26,13 @@ public class CommentController {
 
 	@Autowired
 	private ImageService imageService;
-	
+
 	@Autowired
 	private CommentService commentService;
 
 	/**
-	 * Method updatedComment
-	 * This method is used to update Comment
+	 * Method updatedComment This method is used to update Comment
+	 * 
 	 * @param comment
 	 * @param model
 	 * @param imageId
@@ -40,8 +40,8 @@ public class CommentController {
 	 * @return
 	 */
 	@RequestMapping(value = "/image/comments")
-	public String updatedComment(Comment comment, Model model,
-			@RequestParam(name = "imageId") Integer imageId, HttpSession session) {
+	public String updatedComment(Comment comment, Model model, @RequestParam(name = "imageId") Integer imageId,
+			HttpSession session) {
 		User existingUser = (User) session.getAttribute("loggeduser");
 		Image image = imageService.getImageById(imageId);
 		comment.setUser(existingUser);

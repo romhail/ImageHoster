@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * Class UserService This is a service class to user methods
+ * 
  * @author Romil
  */
 @Service
@@ -16,8 +17,9 @@ public class UserService {
 	private UserRepository userRepository;
 
 	/**
-	 * Method registerUser
-	 * Method to Call the registerUser() method in the UserRepository class to persist the user record in the database
+	 * Method registerUser Method to Call the registerUser() method in the
+	 * UserRepository class to persist the user record in the database
+	 * 
 	 * @param newUser
 	 * @return boolean
 	 */
@@ -30,6 +32,7 @@ public class UserService {
 
 	/**
 	 * Mthod login
+	 * 
 	 * @param user
 	 * @return User
 	 */
@@ -54,7 +57,7 @@ public class UserService {
 				String str = password.replaceAll("[a-zA-Z]", "");
 				str = str.replaceAll("[0-9]", "");
 				if (!str.equalsIgnoreCase("")) {
-					return false;
+					return true;
 				}
 			}
 		}

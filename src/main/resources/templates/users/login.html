@@ -4,7 +4,13 @@
 
 <head th:replace="layout :: site-head">
 </head>
+<style>
 
+div {
+  color: red;font-weight: bold;
+}
+
+</style>
 <header th:replace="layout :: logged-out"></header>
 
 <h2>Please Login:</h2>
@@ -16,6 +22,8 @@
     <label for="password">Password:</label>
     <input type="password" id="password" name="password"/>
     <input type="submit" value="Login"/>
+    <div th:if="${registrationSuccess}">User Registered Successfully</div>
+    <div th:if="${incorrect}">Incorrect ID and Password</div>
 </form>
 
 </html>

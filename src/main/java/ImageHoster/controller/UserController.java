@@ -15,8 +15,8 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
- * Class UserController
- * This is a controller class to map user methods
+ * Class UserController This is a controller class to map user methods
+ * 
  * @author Romil
  */
 @Controller
@@ -29,8 +29,9 @@ public class UserController {
 	private ImageService imageService;
 
 	/**
-	 * Method registration
-	 * This method declares User type and UserProfile type object
+	 * Method registration This method declares User type and UserProfile type
+	 * object
+	 * 
 	 * @param model
 	 * @return String
 	 */
@@ -44,8 +45,9 @@ public class UserController {
 	}
 
 	/**
-	 * Method registerUser
-	 * This method calls the business logic and after the user record is persisted in the database, directs to login page
+	 * Method registerUser This method calls the business logic and after the user
+	 * record is persisted in the database, directs to login page
+	 * 
 	 * @param user
 	 * @param model
 	 * @return String
@@ -53,23 +55,26 @@ public class UserController {
 	@RequestMapping(value = "users/registration", method = RequestMethod.POST)
 	public String registerUser(User user, Model model) {
 		model.addAttribute("User", user);
-		if(user.getUsername().equalsIgnoreCase("") | user.getPassword().equalsIgnoreCase("") | user.getProfile().getFullName().equalsIgnoreCase("")) {
+		if (user.getUsername().equalsIgnoreCase("") | user.getPassword().equalsIgnoreCase("")) {
 			model.addAttribute("validationError", true);
 			return "/users/registration";
 		}
-		if(userService.checkIfUserExists(user.getUsername())) {
+		if (userService.checkIfUserExists(user.getUsername())) {
 			model.addAttribute("userExistsError", true);
 			return "/users/registration";
 		}
-		if (userService.registerUser(user))
-			return "redirect:/users/login";
+		if (userService.registerUser(user)) {
+			model.addAttribute("registrationSuccess", true);
+			return "users/login";
+		}
 		model.addAttribute("passwordTypeError", true);
 		return "/users/registration";
 	}
 
 	/**
-	 * Method login
-	 * This controller method is called when the request pattern is of type 'users/login'
+	 * Method login This controller method is called when the request pattern is of
+	 * type 'users/login'
+	 * 
 	 * @return String
 	 */
 	@RequestMapping("users/login")
@@ -78,31 +83,32 @@ public class UserController {
 	}
 
 	/**
-	 * Method loginUser
-	 * Method is used login user
+	 * Method loginUser Method is used login user
+	 * 
 	 * @param user
 	 * @param session
 	 * @return String
 	 */
 	@RequestMapping(value = "users/login", method = RequestMethod.POST)
-	public String loginUser(User user, HttpSession session) {
+	public String loginUser(User user, HttpSession session, Model model) {
 		User existingUser = userService.login(user);
 		if (existingUser != null) {
 			session.setAttribute("loggeduser", existingUser);
 			return "redirect:/images";
 		} else {
+			model.addAttribute("incorrect", true);
 			return "users/login";
 		}
 	}
 
 	/**
-	 * Method logout
-	 * Method is used logout user
+	 * Method logout Method is used logout user
+	 * 
 	 * @param model
 	 * @param session
 	 * @return String
 	 */
-	@RequestMapping(value = "users/logout", method = RequestMethod.POST)
+	@RequestMapping(value = "users/logout", method = RequestMethod.GET)
 	public String logout(Model model, HttpSession session) {
 		session.invalidate();
 
@@ -110,4 +116,5 @@ public class UserController {
 		model.addAttribute("images", images);
 		return "index";
 	}
+
 }

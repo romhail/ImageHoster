@@ -1,0 +1,28 @@
+<!Doctype html>
+
+<html xmlns:th="http://thymeleaf.org">
+
+<head th:replace="layout :: site-head">
+</head>
+<style>
+div {
+	color: red;
+	font-weight: bold;
+}
+</style>
+<header th:replace="layout :: logged-out"></header>
+
+<h1>Error Page:</h1>
+
+<!-- Get username and password to log in the application-->
+<h2>Some Error Occurred! Please click below to navigate to the
+	homepage</h2>
+<header th:fragment="logged-out" th:remove="tag">
+	<header>
+		<a th:href="@{/users/logout}">
+			<h3>Click To Login Again</h3>
+		</a> 
+	</header>
+</header>
+
+</html>
